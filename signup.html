@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account — Lumen</title>
+  <meta name="description" content="Join Lumen and begin your personalized cosmic journey today." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="auth-page">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="logo-link">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">Lumen</span>
+      </a>
+      <a href="index.html" class="btn btn-outline btn-sm" id="back-home-btn">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main class="auth-main">
+    <div class="auth-glow auth-glow-a" aria-hidden="true"></div>
+    <div class="auth-glow auth-glow-b" aria-hidden="true"></div>
+
+    <div class="auth-card glass" id="signup-card">
+      <div class="auth-orb" aria-hidden="true">✨</div>
+      <h1 class="auth-title">Begin your journey</h1>
+      <p class="auth-sub">Create your Lumen account and let the cosmos speak directly to you.</p>
+
+      <!-- Plan badge (passed via URL) -->
+      <div class="plan-selected-badge glass" id="plan-badge" style="display:none;">
+        <span id="plan-badge-text"></span>
+      </div>
+
+      <!-- OAuth -->
+      <div class="oauth-group">
+        <button class="oauth-btn glass" id="google-signup-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.258h2.908C16.658 14.268 17.64 11.92 17.64 9.2z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.185l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 7.294C4.672 5.167 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+          <span>Sign up with Google</span>
+        </button>
+        <button class="oauth-btn glass" id="apple-signup-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
+            <path d="M15.266 9.534c-.026-2.624 2.143-3.895 2.24-3.957-1.22-1.784-3.117-2.027-3.796-2.053-1.621-.165-3.17.953-3.99.953-.823 0-2.095-.93-3.445-.905-1.775.027-3.41 1.03-4.323 2.617C.117 9.175 1.452 14.476 3.24 17.34c.866 1.404 1.9 2.982 3.253 2.928 1.306-.054 1.8-.842 3.382-.842 1.582 0 2.027.842 3.41.817 1.406-.024 2.298-1.427 3.155-2.838.997-1.625 1.41-3.2 1.435-3.28-.032-.013-2.747-1.054-2.775-4.183l.166.592z"/>
+          </svg>
+          <span>Sign up with Apple</span>
+        </button>
+      </div>
+
+      <div class="auth-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-text">or create with email</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <form class="auth-form" id="signup-form" novalidate>
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label" for="signup-fname">FIRST NAME</label>
+            <input type="text" id="signup-fname" class="field-input" placeholder="Aria" autocomplete="given-name" required />
+            <span class="field-error" id="fname-error" role="alert"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="signup-lname">LAST NAME</label>
+            <input type="text" id="signup-lname" class="field-input" placeholder="Solis" autocomplete="family-name" />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="signup-email">EMAIL</label>
+          <input type="email" id="signup-email" class="field-input" placeholder="aria@cosmos.io" autocomplete="email" required />
+          <span class="field-error" id="signup-email-error" role="alert"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="signup-password">PASSWORD</label>
+          <div class="password-wrap">
+            <input type="password" id="signup-password" class="field-input" placeholder="Min. 8 characters" autocomplete="new-password" required />
+            <button type="button" class="toggle-pw" id="toggle-signup-pw-btn" aria-label="Toggle password visibility">
+              <span class="eye-icon" id="signup-eye-icon">👁</span>
+            </button>
+          </div>
+          <div class="pw-strength" id="pw-strength" aria-label="Password strength">
+            <div class="pw-bar" id="pw-bar"></div>
+          </div>
+          <span class="pw-strength-label" id="pw-strength-label"></span>
+          <span class="field-error" id="signup-pw-error" role="alert"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="signup-zodiac">YOUR ZODIAC SIGN <span class="optional">(optional)</span></label>
+          <select id="signup-zodiac" class="field-input field-select">
+            <option value="">Select your sign…</option>
+            <option value="aries">♈ Aries (Mar 21 – Apr 19)</option>
+            <option value="taurus">♉ Taurus (Apr 20 – May 20)</option>
+            <option value="gemini">♊ Gemini (May 21 – Jun 20)</option>
+            <option value="cancer">♋ Cancer (Jun 21 – Jul 22)</option>
+            <option value="leo">♌ Leo (Jul 23 – Aug 22)</option>
+            <option value="virgo">♍ Virgo (Aug 23 – Sep 22)</option>
+            <option value="libra">♎ Libra (Sep 23 – Oct 22)</option>
+            <option value="scorpio">♏ Scorpio (Oct 23 – Nov 21)</option>
+            <option value="sagittarius">♐ Sagittarius (Nov 22 – Dec 21)</option>
+            <option value="capricorn">♑ Capricorn (Dec 22 – Jan 19)</option>
+            <option value="aquarius">♒ Aquarius (Jan 20 – Feb 18)</option>
+            <option value="pisces">♓ Pisces (Feb 19 – Mar 20)</option>
+          </select>
+        </div>
+
+        <div class="form-check">
+          <label class="checkbox-label">
+            <input type="checkbox" id="signup-terms" required />
+            <span class="checkmark"></span>
+            I agree to the <a href="#" class="highlight-link" id="terms-link">Terms of Service</a> and <a href="#" class="highlight-link" id="privacy-link">Privacy Policy</a>
+          </label>
+          <span class="field-error" id="terms-error" role="alert"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow btn-full" id="signup-submit-btn">
+          ✦ Create My Account
+        </button>
+      </form>
+
+      <p class="auth-footer-link">
+        Already have an account? <a href="login.html" class="highlight-link" id="goto-login-link">Sign in →</a>
+      </p>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — Lumen</title>
+  <meta name="description" content="Sign in to Lumen to access your personalized cosmic readings." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="auth-page">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Navbar (minimal) -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="logo-link">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">Lumen</span>
+      </a>
+      <a href="index.html" class="btn btn-outline btn-sm" id="back-home-btn">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main class="auth-main">
+    <!-- Ambient glows -->
+    <div class="auth-glow auth-glow-a" aria-hidden="true"></div>
+    <div class="auth-glow auth-glow-b" aria-hidden="true"></div>
+
+    <div class="auth-card glass" id="login-card">
+      <!-- Icon -->
+      <div class="auth-orb" aria-hidden="true">🔮</div>
+
+      <h1 class="auth-title">Welcome back, Seeker</h1>
+      <p class="auth-sub">Sign in to continue your cosmic journey.</p>
+
+      <!-- OAuth buttons -->
+      <div class="oauth-group">
+        <button class="oauth-btn glass" id="google-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.258h2.908C16.658 14.268 17.64 11.92 17.64 9.2z" fill="#4285F4"/>
+            <path d="M9 18c2.43 0 4.467-.806 5.956-2.185l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/>
+            <path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/>
+            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 7.294C4.672 5.167 6.656 3.58 9 3.58z" fill="#EA4335"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        <button class="oauth-btn glass" id="apple-btn" type="button">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor" aria-hidden="true">
+            <path d="M15.266 9.534c-.026-2.624 2.143-3.895 2.24-3.957-1.22-1.784-3.117-2.027-3.796-2.053-1.621-.165-3.17.953-3.99.953-.823 0-2.095-.93-3.445-.905-1.775.027-3.41 1.03-4.323 2.617C.117 9.175 1.452 14.476 3.24 17.34c.866 1.404 1.9 2.982 3.253 2.928 1.306-.054 1.8-.842 3.382-.842 1.582 0 2.027.842 3.41.817 1.406-.024 2.298-1.427 3.155-2.838.997-1.625 1.41-3.2 1.435-3.28-.032-.013-2.747-1.054-2.775-4.183l.166.592zM12.61 2.305C13.338 1.41 13.828.17 13.69-1.07c-1.065.043-2.354.71-3.118 1.604-.682.79-1.281 2.067-1.12 3.285 1.19.09 2.408-.607 3.158-1.514z"/>
+          </svg>
+          <span>Continue with Apple</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="auth-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-text">or sign in with email</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Login Form -->
+      <form class="auth-form" id="login-form" novalidate>
+        <div class="field-group">
+          <label class="field-label" for="login-email">EMAIL</label>
+          <input
+            type="email"
+            id="login-email"
+            class="field-input"
+            placeholder="aria@cosmos.io"
+            autocomplete="email"
+            required
+          />
+          <span class="field-error" id="email-error" role="alert"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="login-password">
+            PASSWORD
+            <a href="#" class="field-link" id="forgot-password-link">Forgot?</a>
+          </label>
+          <div class="password-wrap">
+            <input
+              type="password"
+              id="login-password"
+              class="field-input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+            />
+            <button type="button" class="toggle-pw" id="toggle-pw-btn" aria-label="Toggle password visibility">
+              <span class="eye-icon" id="eye-icon">👁</span>
+            </button>
+          </div>
+          <span class="field-error" id="pw-error" role="alert"></span>
+        </div>
+
+        <div class="form-check">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember-me" />
+            <span class="checkmark"></span>
+            Remember me for 30 days
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow btn-full" id="login-submit-btn">
+          Sign In to Lumen
+        </button>
+      </form>
+
+      <!-- Footer link -->
+      <p class="auth-footer-link">
+        New to Lumen? <a href="signup.html" class="highlight-link" id="signup-link">Create an account →</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

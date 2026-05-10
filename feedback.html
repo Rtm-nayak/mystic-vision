@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share Feedback — Lumen</title>
+  <meta name="description" content="Share your experience with Lumen — help us improve your cosmic journey." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="auth.css" />
+</head>
+<body class="auth-page">
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="logo" id="logo-link">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">Lumen</span>
+      </a>
+      <a href="index.html" class="btn btn-outline btn-sm" id="back-home-btn">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main class="auth-main">
+    <div class="auth-glow auth-glow-a" aria-hidden="true"></div>
+    <div class="auth-glow auth-glow-b" aria-hidden="true"></div>
+
+    <!-- Success State (hidden by default) -->
+    <div class="feedback-success glass" id="feedback-success" aria-hidden="true">
+      <div class="success-icon" aria-hidden="true">🌟</div>
+      <h2 class="auth-title">Thank you, Seeker!</h2>
+      <p class="auth-sub">Your words have been received by the cosmos. We'll use them to make Lumen even more luminous.</p>
+      <a href="index.html" class="btn btn-primary btn-glow" id="back-after-feedback-btn">Return Home</a>
+    </div>
+
+    <!-- Feedback Card -->
+    <div class="auth-card auth-card-wide glass" id="feedback-card">
+      <div class="auth-orb" aria-hidden="true">💫</div>
+      <h1 class="auth-title">Share Your Experience</h1>
+      <p class="auth-sub">Your cosmic feedback helps us align the stars even better for you.</p>
+
+      <form class="auth-form" id="feedback-form" novalidate>
+
+        <!-- Category chips -->
+        <div class="field-group">
+          <label class="field-label">WHAT ARE YOU SHARING ABOUT?</label>
+          <div class="chip-group" id="chip-group" role="group" aria-label="Feedback category">
+            <button type="button" class="chip active" data-value="reading" id="chip-reading">Reading Accuracy</button>
+            <button type="button" class="chip" data-value="design" id="chip-design">Design & Feel</button>
+            <button type="button" class="chip" data-value="speed" id="chip-speed">Speed</button>
+            <button type="button" class="chip" data-value="feature" id="chip-feature">Feature Request</button>
+            <button type="button" class="chip" data-value="other" id="chip-other">Other</button>
+          </div>
+        </div>
+
+        <!-- Star rating -->
+        <div class="field-group">
+          <label class="field-label">YOUR EXPERIENCE RATING</label>
+          <div class="star-rating" id="star-rating" role="group" aria-label="Star rating">
+            <button type="button" class="star" data-val="1" id="star-1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-val="2" id="star-2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-val="3" id="star-3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-val="4" id="star-4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-val="5" id="star-5" aria-label="5 stars">★</button>
+          </div>
+          <span class="star-label" id="star-label">Tap to rate</span>
+        </div>
+
+        <!-- Name -->
+        <div class="field-group">
+          <label class="field-label" for="feedback-name">YOUR NAME <span class="optional">(optional)</span></label>
+          <input
+            type="text"
+            id="feedback-name"
+            class="field-input"
+            placeholder="e.g. Aria Solis"
+            autocomplete="name"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="field-group">
+          <label class="field-label" for="feedback-email">EMAIL <span class="optional">(optional — we'll reply if you'd like)</span></label>
+          <input
+            type="email"
+            id="feedback-email"
+            class="field-input"
+            placeholder="aria@cosmos.io"
+            autocomplete="email"
+          />
+        </div>
+
+        <!-- Message -->
+        <div class="field-group">
+          <label class="field-label" for="feedback-msg">YOUR MESSAGE</label>
+          <textarea
+            id="feedback-msg"
+            class="field-input field-textarea"
+            placeholder="Tell us what resonated, what surprised you, or what could be better…"
+            rows="5"
+            required
+          ></textarea>
+          <span class="field-error" id="msg-error" role="alert"></span>
+          <span class="char-count" id="char-count">0 / 500</span>
+        </div>
+
+        <!-- Checkbox -->
+        <div class="form-check">
+          <label class="checkbox-label">
+            <input type="checkbox" id="feedback-consent" />
+            <span class="checkmark"></span>
+            I'm happy for Lumen to share my feedback publicly (anonymised)
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-glow btn-full" id="feedback-submit-btn">
+          ✦ Send to the Cosmos
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>

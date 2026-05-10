@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumen — Glimpse Your Tomorrow</title>
+  <meta name="description" content="Lumen blends ancient astrology with modern intuition to deliver personalized predictions for love, career, and your daily vibe — in seconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Starfield Canvas -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Navbar -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="logo" id="logo-link">
+        <span class="logo-icon">✦</span>
+        <span class="logo-text">Lumen</span>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#oracle" class="nav-link">Oracle</a></li>
+        <li><a href="#zodiac" class="nav-link">Zodiac</a></li>
+        <li><a href="#readings" class="nav-link">Readings</a></li>
+        <li><a href="#insights" class="nav-link">Insights</a></li>
+        <li><a href="#pricing" class="nav-link">Pricing</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-btn" aria-label="Language selector">EN ▾</button>
+        <a href="feedback.html" class="btn btn-outline" id="nav-feedback-btn">Feedback</a>
+        <a href="login.html" class="btn btn-primary" id="nav-login-btn">Sign In</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+      <a href="#oracle" class="mobile-link">Oracle</a>
+      <a href="#zodiac" class="mobile-link">Zodiac</a>
+      <a href="#readings" class="mobile-link">Readings</a>
+      <a href="#insights" class="mobile-link">Insights</a>
+      <a href="#pricing" class="mobile-link">Pricing</a>
+      <a href="feedback.html" class="mobile-link">Feedback</a>
+      <a href="login.html" class="btn btn-primary mobile-cta">Sign In</a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+      <div class="hero-glow hero-glow-left" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-right" aria-hidden="true"></div>
+      <div class="container">
+        <div class="hero-badge" data-aos="fade-down">
+          <span class="badge-icon">✦</span>
+          <span>Cosmic intelligence</span>
+        </div>
+        <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+          The Future of <span class="highlight">Insight</span><br />Begins With Your Name.
+        </h1>
+        <p class="hero-sub" data-aos="fade-up" data-aos-delay="200">
+          Lumen blends ancient astrology with modern intuition to deliver personalized predictions for love, career, and your daily vibe — in seconds.
+        </p>
+        <!-- Input Card -->
+        <div class="input-card glass" data-aos="fade-up" data-aos-delay="300" id="oracle">
+          <label class="input-label" for="hero-input">YOUR NAME</label>
+          <div class="input-row">
+            <input
+              type="text"
+              id="hero-input"
+              class="name-input"
+              placeholder="e.g. Aria Solis"
+              autocomplete="off"
+              aria-label="Enter your name to begin your reading"
+            />
+            <button class="btn btn-primary btn-glow" id="begin-reading-btn" onclick="beginReading()">
+              Begin Reading
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
+            <span class="stat-value" data-target="2400000">2.4M+</span>
+            <span class="stat-label">READINGS DELIVERED</span>
+          </div>
+          <div class="stat-item stat-featured glass" data-aos="fade-up" data-aos-delay="100">
+            <span class="stat-value highlight">97%</span>
+            <span class="stat-label">ACCURACY REPORTED</span>
+          </div>
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+            <span class="stat-value">180+</span>
+            <span class="stat-label">COUNTRIES SERVED</span>
+          </div>
+          <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+            <span class="stat-value">4.9★</span>
+            <span class="stat-label">SEEKER RATING</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Lumen / Features Section -->
+    <section class="features-section" id="readings">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2 class="section-title">Your <span class="highlight">All-In-One</span> Oracle</h2>
+          <p class="section-sub">Beautiful, instant, and uncannily personal — the modern way to ask the universe a question.</p>
+        </div>
+        <div class="features-grid" id="insights">
+          <div class="feature-card glass" data-aos="fade-up" data-aos-delay="0">
+            <div class="feature-icon" aria-hidden="true">🔮</div>
+            <h3 class="feature-title">Deep Astrological Models</h3>
+            <p class="feature-desc">Centuries of astrological tradition encoded into a precise, real-time prediction engine.</p>
+          </div>
+          <div class="feature-card glass" data-aos="fade-up" data-aos-delay="150">
+            <div class="feature-icon" aria-hidden="true">✨</div>
+            <h3 class="feature-title">Personalized Daily Vibe</h3>
+            <p class="feature-desc">Every reading is tuned to your name, sign, and the current celestial alignment.</p>
+          </div>
+          <div class="feature-card glass" data-aos="fade-up" data-aos-delay="300">
+            <div class="feature-icon" aria-hidden="true">🛡️</div>
+            <h3 class="feature-title">Private &amp; Ephemeral</h3>
+            <p class="feature-desc">Your readings live only in this moment — nothing is stored, nothing is shared.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zodiac Strip -->
+    <section class="zodiac-strip" id="zodiac" aria-label="Zodiac signs">
+      <div class="zodiac-scroll">
+        <div class="zodiac-inner">
+          <span class="zodiac-sign" title="Aries">♈ Aries</span>
+          <span class="zodiac-sign" title="Taurus">♉ Taurus</span>
+          <span class="zodiac-sign" title="Gemini">♊ Gemini</span>
+          <span class="zodiac-sign" title="Cancer">♋ Cancer</span>
+          <span class="zodiac-sign" title="Leo">♌ Leo</span>
+          <span class="zodiac-sign" title="Virgo">♍ Virgo</span>
+          <span class="zodiac-sign" title="Libra">♎ Libra</span>
+          <span class="zodiac-sign" title="Scorpio">♏ Scorpio</span>
+          <span class="zodiac-sign" title="Sagittarius">♐ Sagittarius</span>
+          <span class="zodiac-sign" title="Capricorn">♑ Capricorn</span>
+          <span class="zodiac-sign" title="Aquarius">♒ Aquarius</span>
+          <span class="zodiac-sign" title="Pisces">♓ Pisces</span>
+          <!-- Duplicate for seamless loop -->
+          <span class="zodiac-sign" title="Aries">♈ Aries</span>
+          <span class="zodiac-sign" title="Taurus">♉ Taurus</span>
+          <span class="zodiac-sign" title="Gemini">♊ Gemini</span>
+          <span class="zodiac-sign" title="Cancer">♋ Cancer</span>
+          <span class="zodiac-sign" title="Leo">♌ Leo</span>
+          <span class="zodiac-sign" title="Virgo">♍ Virgo</span>
+          <span class="zodiac-sign" title="Libra">♎ Libra</span>
+          <span class="zodiac-sign" title="Scorpio">♏ Scorpio</span>
+          <span class="zodiac-sign" title="Sagittarius">♐ Sagittarius</span>
+          <span class="zodiac-sign" title="Capricorn">♑ Capricorn</span>
+          <span class="zodiac-sign" title="Aquarius">♒ Aquarius</span>
+          <span class="zodiac-sign" title="Pisces">♓ Pisces</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2 class="section-title">Backed by the <span class="highlight">stars</span></h2>
+          <p class="section-sub">Thousands of seekers trust Lumen for their daily cosmic guidance.</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card glass" data-aos="fade-up" data-aos-delay="0">
+            <div class="testimonial-avatar" aria-hidden="true">M</div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">"I read my career prediction on a Monday and got the offer that Friday. I'm a believer."</p>
+              <div class="testimonial-author">
+                <span class="author-name">Maya R.</span>
+                <span class="author-sign">♓ Pisces</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card glass" data-aos="fade-up" data-aos-delay="150">
+            <div class="testimonial-avatar" aria-hidden="true">J</div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">"Beautiful, fast, and oddly accurate. My new morning ritual."</p>
+              <div class="testimonial-author">
+                <span class="author-name">Jonas K.</span>
+                <span class="author-sign">♌ Leo</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card glass" data-aos="fade-up" data-aos-delay="300">
+            <div class="testimonial-avatar" aria-hidden="true">A</div>
+            <div class="testimonial-content">
+              <p class="testimonial-text">"Felt like the universe was actually paying attention for once."</p>
+              <div class="testimonial-author">
+                <span class="author-name">Amara T.</span>
+                <span class="author-sign">♏ Scorpio</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-header" data-aos="fade-up">
+          <h2 class="section-title">Simple, <span class="highlight">Cosmic</span> Pricing</h2>
+          <p class="section-sub">Choose your path to the stars.</p>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-card glass" data-aos="fade-up" data-aos-delay="0">
+            <h3 class="plan-name">Seeker</h3>
+            <div class="plan-price"><span class="price-val">Free</span></div>
+            <ul class="plan-features">
+              <li>✓ 3 readings per day</li>
+              <li>✓ Daily vibe check</li>
+              <li>✓ Basic zodiac insights</li>
+              <li>✗ Deep oracle sessions</li>
+              <li>✗ Compatibility readings</li>
+            </ul>
+            <button class="btn btn-outline" id="plan-seeker-btn" onclick="(function(){var i=document.getElementById('hero-input');if(i){i.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){i.focus();},600);}})();">Get Started</button>
+          </div>
+          <div class="pricing-card glass pricing-featured" data-aos="fade-up" data-aos-delay="150">
+            <div class="plan-badge">Most Popular</div>
+            <h3 class="plan-name highlight">Oracle</h3>
+            <div class="plan-price"><span class="price-val">$9</span><span class="price-period">/mo</span></div>
+            <ul class="plan-features">
+              <li>✓ Unlimited readings</li>
+              <li>✓ Deep oracle sessions</li>
+              <li>✓ Compatibility readings</li>
+              <li>✓ Career &amp; love insights</li>
+              <li>✓ Priority cosmic access</li>
+            </ul>
+            <button class="btn btn-primary btn-glow" id="plan-oracle-btn" onclick="window.location.href='signup.html?plan=oracle';">Begin Oracle</button>
+          </div>
+          <div class="pricing-card glass" data-aos="fade-up" data-aos-delay="300">
+            <h3 class="plan-name">Luminary</h3>
+            <div class="plan-price"><span class="price-val">$29</span><span class="price-period">/mo</span></div>
+            <ul class="plan-features">
+              <li>✓ Everything in Oracle</li>
+              <li>✓ Personal astrologer chat</li>
+              <li>✓ Annual cosmic blueprint</li>
+              <li>✓ Early feature access</li>
+              <li>✓ Exclusive rituals guide</li>
+            </ul>
+            <button class="btn btn-outline" id="plan-luminary-btn" onclick="window.location.href='signup.html?plan=luminary';">Ascend Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-box glass" data-aos="fade-up">
+          <div class="cta-glow" aria-hidden="true"></div>
+          <h2 class="cta-title">Ready to meet <span class="highlight">your future</span>?</h2>
+          <p class="cta-sub">It takes thirty seconds. The cosmos has been waiting longer than that.</p>
+          <a href="javascript:void(0)" class="btn btn-primary btn-glow btn-lg" id="cta-main-btn" onclick="(function(){var i=document.getElementById('hero-input');if(i){i.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){i.focus();},600);}})();">Begin My Reading</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">✦ Lumen Oracle · For wonder &amp; entertainment.</span>
+      <span class="footer-copy">© 2026 Lumen — All cosmic rights reserved.</span>
+    </div>
+  </footer>
+
+  <!-- Reading Modal -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal glass" id="reading-modal">
+      <button class="modal-close" id="modal-close-btn" aria-label="Close reading">&times;</button>
+      <div class="modal-icon" aria-hidden="true">🔮</div>
+      <h2 class="modal-title" id="modal-title">Your Cosmic Reading</h2>
+      <p class="modal-name" id="modal-name"></p>
+      <div class="modal-reading" id="modal-reading"></div>
+      <button class="btn btn-primary btn-glow" id="modal-new-btn" onclick="closeModal()">New Reading</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
