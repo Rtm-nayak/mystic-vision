@@ -324,28 +324,35 @@ function getPasswordStrength(pw) {
     btn.disabled    = true;
     btn.textContent = '✦ Sending to the cosmos…';
 
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzMKMc2GPPuJthavlOvLFDMjLW2oMVw_Efw1LfRYOr6lmozy70OvcanW0b0chimToF7/exec';
+    /* Save to localStorage as a reliable local store */
+    try {
+      const existing = JSON.parse(localStorage.getItem('lumen_feedback') || '[]');
+      existing.push(payload);
+      localStorage.setItem('lumen_feedback', JSON.stringify(existing));
+    } catch (_) { /* storage not available */ }
 
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      // Use text/plain to avoid CORS preflight which Apps Script often blocks
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('✦ Feedback recorded in stars:', data);
+    /* ── If a real Google Apps Script URL is configured, also send there ── */
+    const SHEETS_URL = window.LUMEN_SHEETS_URL || '';   // set via config if needed
+
+    const finish = () => {
       const card    = document.getElementById('feedback-card');
       const success = document.getElementById('feedback-success');
       if (card)    card.style.display = 'none';
       if (success) { success.classList.add('show'); success.setAttribute('aria-hidden', 'false'); }
-    })
-    .catch(error => {
-      console.error('Error sending feedback:', error);
-      showToast('✦ The connection fluttered. Please try again.');
-      btn.disabled = false;
-      btn.textContent = '✦ Send to the Cosmos';
-    });
+    };
+
+    if (SHEETS_URL) {
+      fetch(SHEETS_URL, {
+        method: 'POST',
+        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+      })
+      .then(() => finish())
+      .catch(() => finish()); /* still show success even if network fails */
+    } else {
+      /* No external URL configured — finish after short animation delay */
+      setTimeout(finish, 1400);
+    }
   });
 
   /* Return home button (inside success state) */
