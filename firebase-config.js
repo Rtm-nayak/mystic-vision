@@ -15,12 +15,12 @@
 
 // 👇 PASTE YOUR FIREBASE CONFIG VALUES HERE 👇
 const firebaseConfig = {
-  apiKey:            "YOUR_API_KEY",
-  authDomain:        "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:         "YOUR_PROJECT_ID",
-  storageBucket:     "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId:             "YOUR_APP_ID"
+  apiKey:            "AIzaSyD9IumB8iAECC7MUY1MTpf5BjyK7Z-9dfM",
+  authDomain:        "lumen-mystic.firebaseapp.com",
+  projectId:         "lumen-mystic",
+  storageBucket:     "lumen-mystic.firebasestorage.app",
+  messagingSenderId: "965189961794",
+  appId:             "1:965189961794:web:354b5fea60df559ef945db"
 };
 
 // ── Initialize Firebase (compat SDK — no build tool needed) ──
