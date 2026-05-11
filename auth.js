@@ -1,29 +1,21 @@
 /* ============================
-   auth.js — Login, Signup & Feedback
+   auth.js — UI Logic Only
+   Real auth is handled by firebase-auth.js
    ============================*/
 
-/* ─── Toast ────────────────────────────────────────── */
-function showToast(msg, duration = 3200) {
-  const t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), duration);
-}
-
-/* ─── Simulate OAuth (Google / Apple) ───────────────── */
-function simulateOAuth(provider, redirectTo = 'index.html') {
-  const toastMap = {
-    google: '✦ Connecting to Google…',
-    apple:  '✦ Connecting to Apple…',
+/* ─── Toast (kept here as shared utility) ──────────── */
+// NOTE: firebase-auth.js also defines showToast — that version
+// takes precedence on pages that load firebase-auth.js.
+// This version handles pages that only load auth.js.
+if (typeof showToast === 'undefined') {
+  window.showToast = function showToast(msg, duration = 3200) {
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove('show'), duration);
   };
-  showToast(toastMap[provider]);
-  // Simulate a redirect after a short delay
-  setTimeout(() => {
-    showToast('✓ Signed in! Welcome, Seeker.');
-    setTimeout(() => window.location.href = redirectTo, 1200);
-  }, 2000);
 }
 
 /* ─── Password strength meter ────────────────────────── */
@@ -41,198 +33,31 @@ function getPasswordStrength(pw) {
   return              { level: 5, label: 'Stellar ✦', color: '#a855f7' };
 }
 
-/* ─── LOGIN PAGE ─────────────────────────────────────── */
-(function initLogin() {
-  const form = document.getElementById('login-form');
-  if (!form) return;
-
-  /* Toggle password */
-  const pwInput  = document.getElementById('login-password');
+/* ─── LOGIN PAGE — UI only (firebase-auth.js handles submission) ── */
+(function initLoginUI() {
+  if (!document.getElementById('login-form')) return;
+  /* Password toggle UI */
+  const pwInput   = document.getElementById('login-password');
   const toggleBtn = document.getElementById('toggle-pw-btn');
-  const eyeIcon  = document.getElementById('eye-icon');
-
+  const eyeIcon   = document.getElementById('eye-icon');
   toggleBtn?.addEventListener('click', () => {
     const isText = pwInput.type === 'text';
     pwInput.type = isText ? 'password' : 'text';
     eyeIcon.textContent = isText ? '👁' : '🙈';
-  });
-
-  /* Forgot password */
-  document.getElementById('forgot-password-link')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email')?.value.trim();
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      showToast('✦ Enter your email above first, then click Forgot.');
-      document.getElementById('login-email')?.focus();
-      return;
-    }
-    showToast(`✦ Reset link sent to ${email}. Check your inbox!`);
-  });
-
-  /* Google */
-  document.getElementById('google-btn')?.addEventListener('click', () => simulateOAuth('google'));
-  /* Apple */
-  document.getElementById('apple-btn')?.addEventListener('click',  () => simulateOAuth('apple'));
-
-  /* Real-time field clearing */
-  ['login-email', 'login-password'].forEach(id => {
-    document.getElementById(id)?.addEventListener('input', function () {
-      this.classList.remove('error');
-    });
-  });
-
-  /* Form submit */
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let valid = true;
-
-    const email    = document.getElementById('login-email');
-    const password = document.getElementById('login-password');
-    const emailErr = document.getElementById('email-error');
-    const pwErr    = document.getElementById('pw-error');
-
-    email.classList.remove('error');    emailErr.textContent = '';
-    password.classList.remove('error'); pwErr.textContent    = '';
-
-    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      email.classList.add('error');
-      emailErr.textContent = 'Please enter a valid email address.';
-      valid = false;
-    }
-    if (!password.value || password.value.length < 6) {
-      password.classList.add('error');
-      pwErr.textContent = 'Password must be at least 6 characters.';
-      valid = false;
-    }
-    if (!valid) return;
-
-    const btn = document.getElementById('login-submit-btn');
-    btn.disabled    = true;
-    btn.textContent = '✦ Aligning the stars…';
-
-    setTimeout(() => {
-      btn.textContent = '✓ Signed In!';
-      showToast('✦ Welcome back, Seeker! The cosmos awaits.');
-      setTimeout(() => window.location.href = 'index.html', 1400);
-    }, 1600);
   });
 })();
 
-/* ─── SIGNUP PAGE ───────────────────────────────────── */
-(function initSignup() {
-  const form = document.getElementById('signup-form');
-  if (!form) return;
-
-  /* Show selected plan badge if ?plan= param present */
-  const plan = new URLSearchParams(window.location.search).get('plan');
-  const planBadge = document.getElementById('plan-badge');
-  const planBadgeText = document.getElementById('plan-badge-text');
-  if (plan && planBadge && planBadgeText) {
-    const plans = { oracle: '⭐ Oracle Plan — $9/mo', luminary: '🌟 Luminary Plan — $29/mo' };
-    if (plans[plan]) {
-      planBadgeText.textContent = plans[plan];
-      planBadge.style.display = 'flex';
-    }
-  }
-
-  /* Google / Apple OAuth */
-  document.getElementById('google-signup-btn')?.addEventListener('click', () => simulateOAuth('google'));
-  document.getElementById('apple-signup-btn')?.addEventListener('click',  () => simulateOAuth('apple'));
-
-  /* Toggle password visibility */
-  const pwInput    = document.getElementById('signup-password');
-  const toggleBtn  = document.getElementById('toggle-signup-pw-btn');
-  const eyeIcon    = document.getElementById('signup-eye-icon');
-  const pwBar      = document.getElementById('pw-bar');
-  const pwStrLabel = document.getElementById('pw-strength-label');
-
+/* ─── SIGNUP PAGE — UI only (firebase-auth.js handles submission) ── */
+(function initSignupUI() {
+  if (!document.getElementById('signup-form')) return;
+  /* Password toggle UI */
+  const pwInput   = document.getElementById('signup-password');
+  const toggleBtn = document.getElementById('toggle-signup-pw-btn');
+  const eyeIcon   = document.getElementById('signup-eye-icon');
   toggleBtn?.addEventListener('click', () => {
     const isText = pwInput.type === 'text';
     pwInput.type = isText ? 'password' : 'text';
     eyeIcon.textContent = isText ? '👁' : '🙈';
-  });
-
-  /* Live password strength */
-  pwInput?.addEventListener('input', () => {
-    const val = pwInput.value;
-    if (!val) {
-      if (pwBar) { pwBar.style.width = '0'; pwBar.style.background = ''; }
-      if (pwStrLabel) pwStrLabel.textContent = '';
-      return;
-    }
-    const { level, label, color } = getPasswordStrength(val);
-    if (pwBar) {
-      pwBar.style.width = `${(level / 5) * 100}%`;
-      pwBar.style.background = color;
-    }
-    if (pwStrLabel) { pwStrLabel.textContent = label; pwStrLabel.style.color = color; }
-  });
-
-  /* Terms / privacy links */
-  document.getElementById('terms-link')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('✦ Terms of Service — The cosmos binds us to honesty and fairness.');
-  });
-  document.getElementById('privacy-link')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('✦ Privacy Policy — Your cosmic data stays with you. Always.');
-  });
-
-  /* Real-time error clearing */
-  ['signup-fname', 'signup-email', 'signup-password'].forEach(id => {
-    document.getElementById(id)?.addEventListener('input', function () {
-      this.classList.remove('error');
-    });
-  });
-
-  /* Form submit */
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    let valid = true;
-
-    const fname    = document.getElementById('signup-fname');
-    const email    = document.getElementById('signup-email');
-    const password = document.getElementById('signup-password');
-    const terms    = document.getElementById('signup-terms');
-
-    const fnameErr = document.getElementById('fname-error');
-    const emailErr = document.getElementById('signup-email-error');
-    const pwErr    = document.getElementById('signup-pw-error');
-    const termsErr = document.getElementById('terms-error');
-
-    [fname, email, password].forEach(el => el.classList.remove('error'));
-    [fnameErr, emailErr, pwErr, termsErr].forEach(el => { if (el) el.textContent = ''; });
-
-    if (!fname.value.trim()) {
-      fname.classList.add('error');
-      fnameErr.textContent = 'Please enter your first name.';
-      valid = false;
-    }
-    if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      email.classList.add('error');
-      emailErr.textContent = 'Please enter a valid email address.';
-      valid = false;
-    }
-    if (!password.value || password.value.length < 8) {
-      password.classList.add('error');
-      pwErr.textContent = 'Password must be at least 8 characters.';
-      valid = false;
-    }
-    if (!terms.checked) {
-      termsErr.textContent = 'You must agree to the terms to continue.';
-      valid = false;
-    }
-    if (!valid) return;
-
-    const btn = document.getElementById('signup-submit-btn');
-    btn.disabled    = true;
-    btn.textContent = '✦ Creating your cosmic profile…';
-
-    setTimeout(() => {
-      btn.textContent = '✓ Account Created!';
-      showToast('✦ Welcome to Lumen, Seeker! Your journey begins now.');
-      setTimeout(() => window.location.href = 'index.html', 1600);
-    }, 1800);
   });
 })();
 
@@ -294,7 +119,7 @@ function getPasswordStrength(pw) {
     msgInput.classList.remove('error');
   });
 
-  /* Form submit */
+  /* Form submit — sends to Google Sheets + Firestore */
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -324,15 +149,18 @@ function getPasswordStrength(pw) {
     btn.disabled    = true;
     btn.textContent = '✦ Sending to the cosmos…';
 
-    /* Save to localStorage as a reliable local store */
+    /* 1. Save to localStorage (local backup) */
     try {
       const existing = JSON.parse(localStorage.getItem('lumen_feedback') || '[]');
       existing.push(payload);
       localStorage.setItem('lumen_feedback', JSON.stringify(existing));
     } catch (_) { /* storage not available */ }
 
-    /* ── If a real Google Apps Script URL is configured, also send there ── */
-    const SHEETS_URL = window.LUMEN_SHEETS_URL || '';   // set via config if needed
+    /* 2. Dispatch event so firebase-auth.js can save to Firestore */
+    document.dispatchEvent(new CustomEvent('lumen:feedback', { detail: payload }));
+
+    /* 3. Send to Google Sheets (if URL is configured) */
+    const SHEETS_URL = window.LUMEN_SHEETS_URL || '';
 
     const finish = () => {
       const card    = document.getElementById('feedback-card');
@@ -348,10 +176,9 @@ function getPasswordStrength(pw) {
         headers: { 'Content-Type': 'text/plain;charset=utf-8' }
       })
       .then(() => finish())
-      .catch(() => finish()); /* still show success even if network fails */
+      .catch(() => finish()); /* still show success even if sheets fails */
     } else {
-      /* No external URL configured — finish after short animation delay */
-      setTimeout(finish, 1400);
+      setTimeout(finish, 1200);
     }
   });
 

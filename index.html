@@ -31,7 +31,11 @@
       <div class="nav-actions">
         <button class="lang-btn" id="lang-btn" aria-label="Language selector">EN ▾</button>
         <a href="feedback.html" class="btn btn-outline" id="nav-feedback-btn">Feedback</a>
+        <!-- Auth state: shown when logged OUT -->
         <a href="login.html" class="btn btn-primary" id="nav-login-btn">Sign In</a>
+        <!-- Auth state: shown when logged IN -->
+        <span class="nav-user-label" id="nav-user-label" style="display:none;"></span>
+        <button class="btn btn-outline btn-sm" id="nav-logout-btn" style="display:none;">Sign Out</button>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -293,6 +297,12 @@
     </div>
   </div>
 
+  <!-- Firebase SDK (compat — no build tool needed) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
   <script src="script.js"></script>
+  <script src="firebase-auth.js"></script>
 </body>
 </html>

@@ -210,6 +210,20 @@ function beginReading() {
       overlay.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
+
+    // Save to Firestore if Firebase is loaded and user is signed in
+    if (typeof auth !== 'undefined' && typeof db !== 'undefined') {
+      const user = auth.currentUser;
+      if (user) {
+        db.collection('readings').add({
+          uid:       user.uid,
+          name:      name,
+          category:  category,
+          text:      text,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        }).catch(() => {/* non-critical */});
+      }
+    }
   }, 900);
 }
 
