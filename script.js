@@ -193,6 +193,9 @@ function beginReading() {
   const { category, text } = getReading(name);
   const btn = document.getElementById('begin-reading-btn');
 
+  // Always store the name searched
+  localStorage.setItem('lumen_search_name', name);
+
   // Loading state
   if (btn) { btn.disabled = true; btn.textContent = '✦ Reading the stars…'; }
 
@@ -245,9 +248,18 @@ document.getElementById('modal-close-btn')?.addEventListener('click', closeModal
 document.getElementById('modal-new-btn')?.addEventListener('click', closeModal);
 
 // Hero input wiring
-document.getElementById('hero-input')?.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') beginReading();
-});
+(function initHeroInput() {
+  const input = document.getElementById('hero-input');
+  if (!input) return;
+  
+  // Restore previously searched name if it exists
+  const savedName = localStorage.getItem('lumen_search_name');
+  if (savedName) input.value = savedName;
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') beginReading();
+  });
+})();
 document.getElementById('begin-reading-btn')?.addEventListener('click', beginReading);
 
 /* ─── Pricing Plan Buttons ────────────────────────────── */
